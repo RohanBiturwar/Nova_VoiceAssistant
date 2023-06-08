@@ -88,10 +88,3 @@ class gui(Thread):
             pygame.display.flip()
             if self.circle:
                 self.clock.tick(50)
-
-
-
-
-
-
-

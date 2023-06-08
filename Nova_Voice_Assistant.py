@@ -1,5 +1,5 @@
-# pyttsx3 is a test-to-speach conversion library in python
-# Unlike alternative libraries, it works offline, and is compatible with both python 2 and python 3.
+# PYTTSX3 is a text-to-speach connversion libraary in python
+# unlike alternative libraries, it works offline, and is compatible with both python 2 and python 3
 
 import pyttsx3
 import datetime 
@@ -17,6 +17,7 @@ import pygame as py
 import random
 import math
 from auigui import *
+from pred import *
 
 obj1 = gui()
 obj1.start()
@@ -72,36 +73,6 @@ def takecommand():
         return "None"
     return query
 
-def Yourself():
-    speak("Hi i am Nova")
-    #print("Hi i am Nova")
-    speak("I am your personal Assistant")
-    #print("I am your personal Assistant")
-    speak("I was Developed in Python Programming language")
-    #print("I was Developed in Python Programming language")
-    speak("I was Developed by Mr.Rohan Biturwar as a major project for final year, Batch 2020-2023")
-    #print("I was Developed by Mr.Rohan Biturwar as a major project for final year, Batch 2020-2023")
-    speak("I am currently in my developing stage")
-    #print("I am currently in my developing stage")
-    speak("Soon my first version will be released")
-    #print("Soon my first version will be released")
-    speak("There are many various work that i can do")
-    #print("There are many various work that i can do")
-    speak("Some of which include p y t t s x 3 , speach recognition , pygame , and many more")
-    #print("Some of which include p y t t s x 3 , speach recognition , pygame , and many more")
-    speak("Soon i willbe at my 100% to help you")
-    #print("Soon i willbe at my 100% to help you")
-
-def what_can_you_do():
-
-    speak("I can give top 10 daily international headlines as and when requested")
-    speak("I am able to capture your entire screen that is screen shot")
-    speak("I can search all the image that you want from google")
-    speak("I can get you all the weather Updates of any place you want")
-    speak("When you are upset i can put a smile on your face with the help of some jokes")
-    speak("I am also capable of conerting values from one unit to another unit")
-    speak("Thank you this is all that i can do, My next version will have some new aditional features as well")
-
 def newsfromBBC():
     # BBC news api
     main_url = "https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=a05cf53c56bf4c0882db52aed506e3bc"
@@ -128,7 +99,6 @@ t = time.localtime()
 timestamp = time.strftime('%b-%d-%Y_%H%M', t).lower()
 filename = 'Screenshot' + timestamp + '.jpeg'
 
-
 def imgsearch(text):
     urlp = "https://www.google.com/search?hl=en&tbm=isch&source=hp&biw=1745&bih=861&ei=bVgwXcSvKMzUvASsvr24BQ&q="+text
     urlm = urlp+"&oq="+text+"&gs_l=img.3..0l10.6121.7120..7308...0.0..0.242.1136.2j5j1......0....1..gws-wiz-img.....0..35i39.IvSjTlBizUM&ved=0ahUKEwiEmr2Kr77jAhVMKo8KHSxfD1cQ4dUDCAU&uact=5"
@@ -143,50 +113,60 @@ def say_joke():
     print(f"Joke : {joke}")
     speak(joke)
 
+def capture():
+    # Takes screenshot
+    img = pyautogui.screenshot()
+
+    # Save the image
+    img.save("D:\\Nova Voice assistant\\ScreenShot\\" + filename)
+
+    # Show the image
+    # img.show()
+    
 def weather(text):
+ 
     try:
         api_key_weather = "23917b44d9e7de5e3fe0876778777519"
         main_url = "http://api.openweathermap.org/data/2.5/weather?q="+text+",in&appid="+api_key_weather
-        open_page = requests.get(main_url).json
+        open_page = requests.get(main_url).json()
 
-        condition = open_page['weather'][0]['description'] # weather codition in string 
-        temp = str(round(open_page['main']['temp'] - 273.165)) + 'degree celsius' # Tempprature in celsius
-        pressure = str(open_page['main']['pressure']) + 'milli bar'# pressure in mili bar
-        humidity = str(open_page['main']['hummidity']) + 'precent' # Humidity in precentage %
-        wind_speed = str(open_page['wind']['speed']) + 'meter per second' # wind speed in meter per second
-        wind_angle = str(open_page['main']['deg']) + 'degree of attack' # angle of wind
+        condition = open_page['weather'][0]['description']  # weather condition in string
+        temp = str(round(open_page['main']['temp'] - 273.165)) + 'degree celsius'  # temp in C
+        pressure = str(open_page['main']['pressure']) + 'mili Bar'  # pressure in mBar
+        humidity = str(open_page['main']['humidity']) + 'percent'  # humidity in percentage %
+        wind_speed = str(open_page['wind']['speed']) + 'meter per second'  # wind speed in m/s
+        wind_angle = str(open_page['wind']['deg']) + 'degree'  # angle of wind
 
-        print(f"weather at {text.capatalize()} is as follows")
-        speak(f"weather at {text} is as follows")
+        print(f"Weather at {text.capitalize()} is as follows")
+        speak(f"Weather at   {text} is as follows")
 
-        print(f"Condition    {condition}")
-        speak(f"Condition    {condition}")
+        print(f"Condition       {condition}")
+        speak(f"condition       {condition}")
 
-        print(f"Temprature   {temp}")
-        speak(f"Temprature   {temp}")
+        print(f"Temperature     {temp}")
+        speak(f"Temperature     {temp}")
 
-        print(f"Pressure     {pressure}")
-        speak(f"Pressure     {pressure}")
+        print(f"Pressure        {pressure}")
+        speak(f"Pressure        {pressure}")
 
-        print(f"hummidity    {humidity}")
-        speak(f"hummidity    {humidity}")
+        print(f"Humidity        {humidity}")
+        speak(f"Humidity        {humidity}")
 
-        print(f"wind speed    {wind_speed}")
-        speak(f"wind speed    {wind_speed}")
+        print(f"Wind Speed      {wind_speed}")
+        speak(f"Wind Speed      {wind_speed}")
 
-        print(f"wind angle    {wind_angle}")
-        speak(f"wind angle    {wind_angle}")
+        print(f"At an Angle of  {wind_angle}")
+        speak(f"At an Angle of  {wind_angle}")
 
-
-        
         database_weather(condition, temp, pressure, humidity, wind_speed, wind_angle, text)
 
 
 
     except Exception as e:
-            print("Sorry! Connection Failed -Please try again")
-            speak("Sorry")
-            speak("Connection Failed Please try again")
+        print("Sorry! Connection Failed - Please try again ", e)
+        speak("Sorry ")
+        speak("connection Failed Please try again")
+
 
 def database_weather(condition, temp, pressure, humidity, wind_speed, wind_angle, place):
     # print("db wether")
@@ -211,6 +191,26 @@ def database_weather(condition, temp, pressure, humidity, wind_speed, wind_angle
     finally:
         conn.close()
 
+def database(name, age, gender, hobbies, qualification, favfood):
+   # print("db")
+   # return
+
+    try:
+        conn = pymysql.connect(host="127.0.0.1", user="root", passwd='', db='my_python') # creates connection object
+
+        mycursor = conn.cursor()  # It will allow to fire SQL Query
+
+        url = "INSERT INTO information (Name, Age, Gender, Hobbies, Qualification, Favfood) VALUES('"+name+"','"+age+"','"+gender+"','"+hobbies+"','"+qualification+"','"+favfood+"')"
+        mycursor.execute(url)
+        print()
+        # Fires Query
+
+        conn.commit()  # Save changes in Mysql
+    except Exception as e:
+        print(e)
+    finally:
+        speak("Thankyou for the co-operation")
+        conn.close()
 
 
 if __name__ == '__main__':
@@ -264,15 +264,6 @@ if __name__ == '__main__':
                 url = urlp + text + urlm + text + urls
                 print(url)
                 webbrowser.open(url)
-        
-
-        elif 'wikipedia' in query:
-            speak('Searching wekipedia ..........')
-            query = query.replace('wikipedia', "")
-            result = wikipedia.summary(query, sentences=2)
-            speak('according to wikipedia')
-            speak(result)
-
 
         elif 'play music' in query:
             speak("Be ready to rock and roll")
@@ -281,6 +272,24 @@ if __name__ == '__main__':
             print(songs)
             speak("Dj play music")
             os.startfile(os.path.join(music_dir, songs[0])) # It will play the first song we can use random number technique to play any random song
+        
+        elif 'party' in query:
+            speak("Be ready to rock and roll")
+            music_dir = 'D:\\EDM'
+            songs = os.listdir(music_dir) # It will list all the songs in our music directory
+            print(songs)
+            speak("Dj play music")
+            os.startfile(os.path.join(music_dir, songs[0])) # It will play the first song we can use random number technique to play any random song
+        
+        elif 'Screenshot' in query:
+            capture()
+            print("Sir your image has been captured successfully")
+            speak("Sir your image has been captured successfully")
+            speak("Do you want to see it")
+            query = takecommand()
+            if 'yes' in query:
+                path = "D:\\Nova Voice assistant\\ScreenShot\\" + filename
+                os.startfile(path)
             
         elif 'open stack overflow' in query:
             webbrowser.open("stackoverflow.com")
@@ -301,6 +310,47 @@ if __name__ == '__main__':
             speak("Tell me the place whose weather report you want")
             place = takecommand()
             weather(place)
+
+        elif 'my friend' in query:
+            speak("Welcome friend How Are you?")
+            speak("Could you help me with your name please...")
+            name = 'None'
+            age = 'None'
+            gender = 'None'
+            hobbies = 'None'
+            qualification = 'None'
+            favfood = 'None'
+
+            speak("What is Your Name")
+            print("Name")
+            while name == 'None':
+                name = takecommand()
+
+
+            speak("I also keen to know you gender...")
+            while gender == 'None':
+                gender = takecommand()
+
+            speak('What is your age')
+            while age == 'None':
+                age = takecommand()
+
+
+            speak("I am also interested in knowing your hobbies")
+            while hobbies == 'None':
+                hobbies = takecommand()
+
+            speak("Can you tell me something about your Qualifications..")
+            while qualification == 'None':
+                qualification = takecommand()
+
+            speak("Lastly tell me something which food item you love to eat")
+            while favfood == 'None':
+                favfood = takecommand()
+            print(name, age, gender, hobbies, qualification, favfood)
+
+            database(name, age, gender, hobbies, qualification, favfood)
+
 
         elif 'exit' in query:
             exit()
